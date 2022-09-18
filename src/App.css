@@ -1,10 +1,10 @@
 body{
   background-color: #282c34;
-  color: whitesmoke;
+  color: white;
 }
 
 .App {
-  width: 75%;
+  width: 70%;
   margin: 0 auto;
   text-align: center;
   padding: 1rem;
@@ -16,11 +16,19 @@ body{
   margin: 1.5rem 0;
 }
 .App input{
-  padding: 10px;
+  padding: 12px;
   border: 1px solid  #ccc;
 }
 
-.App progress{
-  padding: 8px;
-  margin: 10px ;
+.App .progress-container{
+  height: 8px;
+  margin: 1.2rem 0 1rem .6rem;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  background-color: #ede5e5
+}
+.App .progress-bar{
+  height: 100%;
+  max-width: 100%;
+  border-radius: 5px;
 }

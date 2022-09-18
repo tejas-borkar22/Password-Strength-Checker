@@ -5,7 +5,10 @@ import {hasNumber,hasUpperCase,hasLowerCase,hasSpecialCharacter} from './utils';
 function App() {
   const [password, setPassword] = useState("");
   const [strength,setStrength] = useState(0);
-  const [progress,setProgress] = useState(25);
+  const [progressBarStyles,setProgressBarStyles] = useState({
+    width : '0%',
+    backgroundColor : 'transparent'
+  });
    
   const handlePwdChange = (event) => {
     setPassword(event.target.value);
@@ -17,9 +20,6 @@ function App() {
   // pwd.strength = pwd.length + pwd.characterType
   // totalStrength <= 10
 
-  const updateProgressBarColor = {
-    backgroundColor : 'red'
-  }
   let totalStrength = 0;
   if(password.length > 3){
     const strengthByLength = Math.min(6,Math.floor(password.length / 3));
@@ -51,17 +51,23 @@ function App() {
    totalStrength = 0;
 
   setStrength(totalStrength);
-
-  totalStrength > 8 ?  updateProgressBarColor.backgroundColor = 'green' : updateProgressBarColor.backgroundColor = 'orange';
-  setProgress(totalStrength * 10);
-
-
+  setProgressBarStyles({
+    backgroundColor : 'red',
+    width : `${totalStrength * 10}%`
+  })
+  if(totalStrength > 8){
+    setProgressBarStyles({backgroundColor : 'green', width : `${totalStrength * 10}%`})
+  }else if(totalStrength > 6){
+    setProgressBarStyles({backgroundColor : 'orange' ,width : `${totalStrength * 10}%`})
+  }
   } , [password])
   return (
     <div className="App">
       <h1 className="App-header">Password Strength Checker 🔒🔑</h1>
       <input type="text" value={password} onChange={handlePwdChange} placeholder="Enter your password !!!"/>
-      <progress id="file" value={progress} max="100"></progress>
+      <div className="progress-container">
+        <div className="progress-bar" style={ {...progressBarStyles} }></div>
+      </div>
       <p>Strength of your password (out of 10) is {strength}</p>
     </div>
   );
